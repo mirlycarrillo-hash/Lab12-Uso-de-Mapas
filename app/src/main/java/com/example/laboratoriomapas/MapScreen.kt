@@ -5,9 +5,11 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -46,6 +48,17 @@ fun MapScreen() {
         LatLng(-16.4205151, -71.4945209), // Paucarpata
         LatLng(-16.3524187, -71.5675994)  // Zamacola
     )
+
+    // Mover la cámara a Yura con animación de 3 segundos
+    LaunchedEffect(Unit) {
+        cameraPositionState.animate(
+            update = CameraUpdateFactory.newLatLngZoom(
+                LatLng(-16.2520984, -71.6836503), // Yura
+                12f
+            ),
+            durationMs = 3000
+        )
+    }
 
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
